@@ -14,9 +14,7 @@ DB_USER_PWD = os.getenv('DB_USER_PWD')
 
 
 def create_database():
-    connection = psycopg2.connect(
-        host=DB_HOST, user=DB_USER, password=DB_USER_PWD, database=DB_NAME
-    )
+    connection = psycopg2.connect(DB_HOST)
     cursor = connection.cursor(cursor_factory=RealDictCursor)
     cursor.execute('create table query_history ('
                    'keywords varchar(255),'
