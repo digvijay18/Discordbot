@@ -5,21 +5,22 @@ import constants
 
 
 class WebCommands(object):
-    def __init__(self):
-        self.store = store.Store(use_cache=True)
-
     def list_commands(self):
         for func in dir(self):
             if callable(getattr(self, func)) and func.startswith('command_'):
                 command = Command(getattr(self, func), name=func.split('_')[1])
                 yield command
 
-    async def command_google(self, sender, keywords):
+    @staticmethod
+    async def command_google(sender, keywords):
         keywords = keywords.replace('_', ' ')
-        result = self.store.search(keywords, constants.RESULT)
+        _store = store.Store(use_cache=True)
+        result = _store.search(keywords, constants.RESULT)
         await sender.send(result)
 
-    async def command_recent(self, sender, keywords):
+    @staticmethod
+    async def command_recent(sender, keywords):
         keywords = keywords.replace('_', ' ')
-        result = self.store.search(keywords, constants.HISTORY)
+        _store = store.Store(use_cache=True)
+        result = _store.search(keywords, constants.HISTORY)
         await sender.send(result)

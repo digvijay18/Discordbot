@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DB_NAME = os.getenv('DB_NAME')
-DB_HOST = os.getenv('DB_HOST')
+DB_HOST = os.getenv('DATABASE_URL')
 DB_PORT = os.getenv('DB_PORT')
 DB_USER = os.getenv('DB_USER')
 DB_USER_PWD = os.getenv('DB_USER_PWD')
@@ -15,9 +15,7 @@ DB_USER_PWD = os.getenv('DB_USER_PWD')
 
 class DB(object):
     def __init__(self):
-        self.connection = psycopg2.connect(
-            host=DB_HOST
-        )
+        self.connection = psycopg2.connect(DB_HOST)
         self.cursor = self.connection.cursor(cursor_factory=RealDictCursor)
 
     def get_cursor(self):
