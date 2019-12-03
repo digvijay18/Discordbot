@@ -10,13 +10,14 @@ class Store(object):
         self.errors = None
         self.use_cache = use_cache
         self.db = db.DB()
-        self.cache = cache.Cache(cache_result_limit)
+        self.cache = None  # cache.Cache(cache_result_limit)
         self.engine = search.SearchByGoogle()
         self.searchable = [constants.RESULT]
         self.cacheable = [constants.RESULT]
 
     def search(self, keyword, op_type):
-        self.search_cache(keyword, op_type) or self.search_db(keyword, op_type)
+        # self.search_cache(keyword, op_type) or self.search_db(keyword, op_type)
+        self.search_db(keyword, op_type)
         if not self.results and op_type in self.searchable:
             self.search_engine(keyword)
             self.save(keyword, self.results)
@@ -44,7 +45,8 @@ class Store(object):
             self.results.extend(result)
             print('Results From DB: ', self.results)
             if result and op_type in self.cacheable:
-                self.save_in_cache(keyword, result)
+                pass
+                # self.save_in_cache(keyword, result)
             return not not result
         except AttributeError as exc:
             self.errors = str(exc)
@@ -62,7 +64,7 @@ class Store(object):
             return False
 
     def save(self, keyword, results):
-        self.save_in_cache(keyword, results)
+        # self.save_in_cache(keyword, results)
         self.save_in_db(keyword, results)
 
     def save_in_cache(self, keyword, results):

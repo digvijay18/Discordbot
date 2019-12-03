@@ -16,7 +16,7 @@ DB_USER_PWD = os.getenv('DB_USER_PWD')
 class DB(object):
     def __init__(self):
         self.connection = psycopg2.connect(
-            host=DB_HOST, port=DB_PORT, user=DB_USER, password=DB_USER_PWD, database=DB_NAME
+            host=DB_HOST
         )
         self.cursor = self.connection.cursor(cursor_factory=RealDictCursor)
 
