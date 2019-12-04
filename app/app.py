@@ -19,6 +19,5 @@ def application():
     we run the bot.
     """
     bot = TesterBot(command_prefix="!")
-    # commands = WebCommands()
     bot.register_commands(WebCommands)
     bot.run(token)

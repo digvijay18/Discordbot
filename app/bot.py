@@ -30,8 +30,15 @@ class TesterBot(Bot):
         print(f'{self.user} has connected to Discord!')
 
     async def on_error(self, event, *args, **kwargs):
+        context, exception = args
         with open('err.log', 'a') as f:
             if event == 'on_message':
-                f.write(f'Unhandled message: {args[0]}\n')
+                f.write('Unhandled message: %s\n' % str(exception))
             else:
-                raise discord.DiscordException
+                f.write('Unknown Exception: %s\n' % str(exception))
+        await context.send(str(exception))
+
+    async def on_command_error(self, context, exception):
+        with open('err.log', 'a') as f:
+            f.write('Command Exception: %s\n' % str(exception))
+        await context.send(str(exception))
