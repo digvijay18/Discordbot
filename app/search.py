@@ -1,3 +1,9 @@
+"""
+This class implements the Search by google and includes some basic handling
+like retries and exception handling. It also takes care of retries that fail
+intermittently.
+"""
+
 from googlesearch import search as Search
 
 

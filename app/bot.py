@@ -1,3 +1,8 @@
+"""
+This file contains the bot class subclassed from discord.py arbitrary library.
+"""
+
+
 import os
 import discord
 from discord.ext.commands import Bot
@@ -13,6 +18,10 @@ server_name = os.getenv('DISCORD_SERVER_NAME')
 
 class TesterBot(Bot):
     def register_commands(self, command_set):
+        """
+        This method registers the commands specified in the instantiated command
+        class.
+        """
         _commands = command_set.list_commands()
         for command in _commands:
             self.add_command(command)

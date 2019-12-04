@@ -1,3 +1,8 @@
+"""
+This class implements low-level connection operations and also encapsulates
+business flow DB queries as methods.
+"""
+
 import os
 import psycopg2
 from psycopg2.extras import execute_values, RealDictCursor
@@ -19,9 +24,16 @@ class DB(object):
         self.cursor = self.connection.cursor(cursor_factory=RealDictCursor)
 
     def get_cursor(self):
+        """
+        This method returns the underlying raw cursor to execute queries directly or
+        use various related methods and attributes on the cursor object.
+        """
         return getattr(self, 'cursor')
 
     def execute_query(self, query, *params):
+        """
+        This method runs queries.
+        """
         if params:
             self.cursor.execute(query, params)
         else:
@@ -29,6 +41,11 @@ class DB(object):
         self.connection.commit()
 
     def q_result(self, fields, serial=False):
+        """
+        This method returns the dictionary of query results mapped to specified
+        columns. If serial is True and only one field is specified, it returns
+        a list of values from the specified field.
+        """
         response = self.cursor.fetchall()
         result = []
         for _row in response:
@@ -55,6 +72,10 @@ class DB(object):
         return self.q_result(fields=['keywords'], serial=True)
 
     def save_result(self, keywords, result):
+        """
+        This method saves the results obtained from google search against the
+        keyword searched.
+        """
         result = [(keywords, link)for link in result]
         query = "insert into query_history (keywords, link) values %s"
         execute_values(self.cursor, query, result)

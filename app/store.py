@@ -1,3 +1,8 @@
+"""
+This class implements the Store. A store instance is created whenever a command
+is called.
+"""
+
 from app import db
 from app import cache
 from app import search
@@ -5,6 +10,14 @@ from app import constants
 
 
 class Store(object):
+    """
+    The lookup in store follows the following pattern -
+        1. Lookup in Cache (if content found return else next step)
+        2. Lookup in DB (if content found return else next step)
+        3. Search on Google (and save)
+    Once the result is found, it is stored in results attribute frm where it is
+    returned.
+    """
     def __init__(self, use_cache=False, cache_result_limit=5):
         self.results = []
         self.errors = None
