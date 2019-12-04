@@ -1,7 +1,7 @@
 from discord.ext.commands import Command
 
-import store
-import constants
+from app import store
+from app import constants
 
 
 class WebCommands(object):

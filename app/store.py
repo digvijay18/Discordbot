@@ -1,7 +1,7 @@
-import db
-import cache
-import search
-import constants
+from app import db
+from app import cache
+from app import search
+from app import constants
 
 
 class Store(object):
