@@ -10,3 +10,5 @@ by the library used. For eg - To search "game of thrones", use "game_of_thrones"
 3. Currently, Redis cache is unavailable for use as Heroku does not provide it for free.
 
 4. There is no proper and complete Logging implemented.
+
+5. All authentication secrets are included in the repo for the sake of completeness. On production, they should not be part of repo.
